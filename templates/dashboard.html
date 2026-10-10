@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Case Desk · EDU-cRIME{% endblock %}
+{% block content %}
+<section class="dashboard-hero">
+  <div>
+    <div class="eyebrow"><span class="eyebrow-line"></span> YOUR INVESTIGATION HQ</div>
+    <h1>Welcome back, <span class="serif-accent">{{ user.name|e }}.</span></h1>
+    <p class="lead">The truth is in the details. Which case will you crack today?</p>
+    <div class="profile-pills"><span class="pill"><span class="pill-icon">◈</span> {{ user.stream }}</span><span class="pill"><span class="status-dot"></span> DETECTIVE ON DUTY</span></div>
+  </div>
+  <div class="hero-emblem"><div class="emblem-ring">⌕</div><span>OBSERVE · DEDUCE · SOLVE</span></div>
+</section>
+<section class="stats-grid">
+  <article class="stat-card"><span class="stat-icon">▤</span><span class="stat-label">CASES SOLVED</span><strong>{{ user.cases_solved or 0 }}</strong><small>Your investigations</small></article>
+  <article class="stat-card"><span class="stat-icon">✦</span><span class="stat-label">BEST SCORE</span><strong>{{ user.best_score or 0 }}<em>/3</em></strong><small>Personal best</small></article>
+  <article class="stat-card"><span class="stat-icon">◎</span><span class="stat-label">ANSWERS CORRECT</span><strong>{{ user.correct_answers or 0 }}</strong><small>Knowledge in action</small></article>
+</section>
+<div class="section-heading"><div><div class="eyebrow"><span class="eyebrow-line"></span> SELECT YOUR INVESTIGATION</div><h2>Choose a subject.</h2></div><span class="section-count">{{ subjects|length }} SUBJECTS AVAILABLE</span></div>
+<section class="subject-grid">
+{% set icons = {"Physics":"ϟ","Chemistry":"⚗","Mathematics":"∑","Biology":"⌬","Accountancy":"₹","Business Studies":"↗","Economics":"◉","History":"⌛","Political Science":"⚖","Geography":"⌖"} %}
+{% for subject in subjects %}
+<article class="subject-card">
+  <div class="subject-card-head"><span class="subject-icon">{{ icons.get(subject, "✦") }}</span><span class="file-number">FILE {{ "%02d"|format(loop.index) }}</span></div>
+  <h3>{{ subject }}</h3><p>Observe the evidence. Apply your knowledge. Solve the mystery.</p>
+  <div class="subject-actions">
+    <a class="button button-secondary" href="{{ url_for('choose_case', mode='fixed', subject=subject) }}">Fixed case <span>→</span></a>
+    <a class="button button-ai" href="{{ url_for('choose_case', mode='ai', subject=subject) }}"><span>✦</span> AI case</a>
+  </div>
+</article>
+{% endfor %}
+</section>
+<div class="ai-banner"><div class="ai-spark">✦</div><div><span class="eyebrow">POWERED BY OLLAMA</span><h3>Every investigation can be a new mystery.</h3><p>Generate original subject-based cases with clues, questions, answers, and explanations.</p></div><span class="ai-banner-label">AI CASE LAB ↗</span></div>
+{% endblock %}

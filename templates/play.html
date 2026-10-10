@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ case.title }} · EDU-cRIME{% endblock %}
+{% block content %}
+<div class="case-toolbar"><a href="{{ url_for('dashboard') }}" class="back-link">← Back to case desk</a><span class="case-mode {% if active.mode == 'ai' %}mode-ai{% endif %}">{% if active.mode == 'ai' %}✦ AI GENERATED CASE{% else %}▤ FIXED CASE FILE{% endif %}</span></div>
+<section class="case-layout">
+  <div class="case-main">
+    <div class="eyebrow"><span class="eyebrow-line"></span> {{ active.subject|upper }} INVESTIGATION</div>
+    <h1 class="case-title">{{ case.title }}</h1>
+    <p class="case-story">{{ case.story }}</p>
+    <div class="clues-heading"><span class="clue-symbol">⌕</span><div><h2>Evidence board</h2><p>Read each clue carefully before making your deduction.</p></div></div>
+    <div class="clue-grid">{% for clue in case.clues %}<article class="clue-card"><span class="clue-number">EVIDENCE 0{{ loop.index }}</span><p>{{ clue }}</p></article>{% endfor %}</div>
+    <div class="question-card">
+      <div class="question-top"><span>YOUR DEDUCTION</span><span class="progress-label">QUESTION {{ question_number }} <span class="muted">/ {{ total }}</span></span></div>
+      <div class="progress-track"><span style="width: {{ (question_number / total * 100)|round }}%"></span></div>
+      <h2>{{ question.question }}</h2>
+      <form method="post" class="answer-form" id="answer-form">
+        {% for option in question.options %}
+        <label class="answer-option"><input type="radio" name="answer" value="{{ option_letters[loop.index0] }}" required><span class="answer-letter">{{ option_letters[loop.index0] }}</span><span class="answer-text">{{ option }}</span><span class="answer-check">✓</span></label>
+        {% endfor %}
+        <button class="button button-primary button-wide" type="submit">{% if question_number == total %}Reveal my results{% else %}Lock in deduction{% endif %} <span>↗</span></button>
+      </form>
+    </div>
+  </div>
+  <aside class="case-sidebar">
+    <div class="sidebar-label">CASE SUMMARY</div><div class="sidebar-subject">{{ active.subject }}</div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-progress"><div><span>Progress</span><b>{{ question_number }} / {{ total }}</b></div><div class="progress-track"><span style="width: {{ (question_number / total * 100)|round }}%"></span></div></div>
+    <div class="sidebar-note"><span>◈</span><p><b>Detective tip</b><br>Use the clues to reason through the question. Your explanation will appear in the results file.</p></div>
+    <div class="sidebar-seal">EDU<br><span>✦</span><br>CRIME</div>
+  </aside>
+</section>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Detective Profile · EDU-cRIME{% endblock %}
+{% block content %}
+<div class="eyebrow"><span class="eyebrow-line"></span> PERSONNEL RECORD</div><h1 class="page-title">Detective <span class="serif-accent">profile.</span></h1>
+<section class="profile-layout">
+  <article class="profile-card"><div class="profile-avatar">{{ user.name[:1]|upper }}</div><h2>{{ user.name }}</h2><span class="rank-chip">{{ user.stream }}</span><div class="sidebar-divider"></div><div class="profile-detail"><span>AGE</span><b>{{ user.age if user.age else "Not provided" }}</b></div><div class="profile-detail"><span>CASES SOLVED</span><b>{{ user.cases_solved or 0 }}</b></div><div class="profile-detail"><span>BEST SCORE</span><b>{{ user.best_score or 0 }} / 3</b></div><div class="profile-detail"><span>ANSWER ACCURACY</span><b>{{ accuracy }}%</b></div><a class="button button-primary button-wide" href="{{ url_for('dashboard') }}">Back to case desk →</a></article>
+  <div class="profile-note"><span class="eyebrow">THE DETECTIVE CODE</span><h2>Observe the details.<br><span class="serif-accent">Question the obvious.</span></h2><p>Your progress is stored locally in this app. Keep investigating to improve your accuracy and build your detective record.</p><div class="case-stamp"><span class="stamp-icon">✦</span><span><b>KEEP YOUR EYES OPEN</b><small>THE NEXT CLUE MAY CHANGE EVERYTHING</small></span></div></div>
+</section>
+{% endblock %}
