@@ -1,0 +1,25 @@
+EDU-cRIME — EXHIBITION DAY CHECKLIST
+
+BEFORE LEAVING
+[ ] Laptop fully charged + charger packed
+[ ] Run the site and test it in Chrome
+[ ] Complete one fixed case from start to results
+[ ] Test AI case generation if configured
+[ ] Confirm fallback works by disconnecting internet only if safe to test
+[ ] Keep a prepared case ready
+[ ] Bring mouse / hotspot if permitted
+[ ] Do not display API keys or private account dashboards
+
+DEMO ORDER (ABOUT 3 MINUTES)
+[ ] Welcome and explain the idea
+[ ] Sign in with a fictional name
+[ ] Select a subject
+[ ] Show the story and clues
+[ ] Answer questions and show explanations
+[ ] Show AI generation if available; otherwise explain the backup mode
+[ ] Explain Flask, frontend, and responsible AI use
+
+IF SOMETHING FAILS
+1. Return to dashboard and choose a fixed/prepared case.
+2. If the page is not loading, check that the terminal window running app.py is still open.
+3. If AI fails, continue with the prepared case; don't spend the whole demo troubleshooting.
