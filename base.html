@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <title>{% block title %}EDU-cRIME{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('dashboard') if session.get('username') else url_for('index') }}">
+      <span class="brand-mark">⌕</span><span>EDU<span class="brand-accent">-cRIME</span><small>A DETECTIVE'S WAY TO STUDY</small></span>
+    </a>
+    {% if session.get('username') %}
+    <nav class="topnav">
+      <a href="{{ url_for('dashboard') }}">Case desk</a>
+      <a href="{{ url_for('profile') }}">Detective profile</a>
+      <form method="post" action="{{ url_for('logout') }}"><button class="nav-logout" type="submit">Sign out ↗</button></form>
+    </nav>
+    {% else %}
+    <span class="top-tag"><span class="status-dot"></span> YOUR NEXT CASE AWAITS</span>
+    {% endif %}
+  </header>
+  <main class="page-shell">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}<div class="flash-stack">{% for category, message in messages %}<div class="flash flash-{{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="footer"><span>EDU-cRIME <span class="muted">/ LEARN BY INVESTIGATING</span></span><span>BUILT FOR CURIOUS MINDS <span class="gold">✦</span></span></footer>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

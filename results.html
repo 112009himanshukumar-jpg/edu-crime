@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Case Results · EDU-cRIME{% endblock %}
+{% block content %}
+<section class="results-hero">
+  <div class="result-seal">{{ rank_icon }}</div>
+  <div class="eyebrow"><span class="eyebrow-line"></span> INVESTIGATION COMPLETE</div>
+  <h1>Case <span class="serif-accent">closed.</span></h1>
+  <p class="lead">{{ active.case.title }} · {{ active.subject }}</p>
+  <div class="score-panel"><div class="score-number">{{ score }}<span>/{{ total }}</span></div><div class="score-detail"><span class="rank-chip">{{ rank }}</span><p>{% if score == 3 %}Flawless deduction. Every clue led you to the right answer.{% elif score == 2 %}Strong work. Review the evidence and sharpen your next deduction.{% elif score == 1 %}A start to your detective journey. Every explanation is a new clue.{% else %}Every great detective learns from a difficult case. Review the evidence and try again.{% endif %}</p></div></div>
+  <a class="button button-primary" href="{{ url_for('dashboard') }}">Return to case desk <span>↗</span></a>
+</section>
+<section class="review-section"><div class="section-heading"><div><div class="eyebrow"><span class="eyebrow-line"></span> CASE NOTES</div><h2>Review the evidence.</h2></div><span class="section-count">{{ total }} QUESTIONS</span></div>
+{% for item in answers %}
+<article class="review-card"><div class="review-head"><span class="review-index">0{{ loop.index }}</span><span class="review-status {% if item.correct %}is-correct{% else %}is-wrong{% endif %}">{% if item.correct %}✓ CORRECT{% else %}× REVIEW{% endif %}</span></div><h3>{{ item.question }}</h3><p class="review-answer">Your answer: <b>{{ item.choice }}. {{ item.options[["A","B","C","D"].index(item.choice)] }}</b></p>{% if not item.correct %}<p class="review-answer">Correct answer: <b>{{ item.correct_answer }}. {{ item.options[["A","B","C","D"].index(item.correct_answer)] }}</b></p>{% endif %}<div class="explanation"><span>✦</span><p><b>Deduction explained</b><br>{{ item.explanation }}</p></div></article>
+{% endfor %}
+</section>
+{% endblock %}

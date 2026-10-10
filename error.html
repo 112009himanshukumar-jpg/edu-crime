@@ -1,0 +1,3 @@
+{% extends "base.html" %}
+{% block title %}{{ code }} · EDU-cRIME{% endblock %}
+{% block content %}<section class="empty-state"><div class="result-seal">⌕</div><div class="eyebrow">CASE FILE {{ code }}</div><h1>Dead end.</h1><p class="lead">{{ message }}</p><a class="button button-primary" href="{{ url_for('dashboard') }}">Return to case desk ↗</a></section>{% endblock %}
